@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68931506442",
+    "project_id": "notetakingcompose",
+    "storage_bucket": "notetakingcompose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68931506442:android:2e9bb73c03cab241d26af3",
+        "android_client_info": {
+          "package_name": "com.rosario.notetakingcompose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpWUrq9T-PQwCgUrVvvSjF9ikacSn4z2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

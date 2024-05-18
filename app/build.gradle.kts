@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    //implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +68,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Import the BoM for the Firebase platform
+    implementation (platform("com.google.firebase:firebase-bom:30.1.0"))
+    //authentication
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    //firestore
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+    //coroutine
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
+    //navigation
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
 }
