@@ -23,7 +23,9 @@ class AuthRepository {
         Firebase.auth
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{
+                if(it.isSuccessful){
 
+                }
             }
     }
 }
