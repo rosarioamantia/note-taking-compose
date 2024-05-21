@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthRepository {
@@ -24,8 +25,26 @@ class AuthRepository {
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{
                 if(it.isSuccessful){
-
+                    onComplete.invoke(true)
+                }else{
+                    onComplete.invoke(false)
                 }
-            }
+            }.await() // await() to avoid the blocking of main thread
+    }
+
+    suspend fun loginUser(
+        email: String,
+        password: String,
+        onComplete: (Boolean) -> Unit
+    ) = withContext(Dispatchers.IO){
+        Firebase.auth
+            .signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener{
+                if(it.isSuccessful){
+                    onComplete.invoke(true)
+                }else{
+                    onComplete.invoke(false)
+                }
+            }.await() // await() to avoid the blocking of main thread
     }
 }
