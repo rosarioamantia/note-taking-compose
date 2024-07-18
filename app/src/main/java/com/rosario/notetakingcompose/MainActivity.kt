@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.rosario.notetakingcompose.login.LoginScreen
+import com.rosario.notetakingcompose.login.SignUpScreen
 import com.rosario.notetakingcompose.ui.theme.NoteTakingComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,25 +24,31 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    LoginScreen(onNavToHomePage = { /*TODO*/ }) {
+
+                    }
                 }
             }
         }
     }
 }
 
+@Preview(showSystemUi = true)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun PrevLoginScreen() {
+    NoteTakingComposeTheme {
+        LoginScreen(onNavToHomePage = { /*TODO*/ }) {
+
+        }
+    }
 }
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+fun PrevSignupScreen() {
     NoteTakingComposeTheme {
-        Greeting("Android")
+        SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
+
+        }
     }
 }

@@ -22,7 +22,7 @@ class LoginViewModel(
         private set // -> means that set method is only accessible from within this class
 
     fun onUserNameChange(userName: String){
-        loginState = loginState.copy(userName = userName)
+        loginState = loginState.copy(userName = "userName")
     }
 
     fun onPasswordChange(password: String){
@@ -31,6 +31,10 @@ class LoginViewModel(
 
     fun onUserNameSignupChange(userNameSignup: String){
         loginState = loginState.copy(userNameSignUp = userNameSignup)
+    }
+
+    fun onPasswordSignupChange(passwordSignUp: String){
+        loginState = loginState.copy(passwordSignUp = passwordSignUp)
     }
 
     fun onConfirmPasswordSignupChange(confirmPasswordSignUp: String){
