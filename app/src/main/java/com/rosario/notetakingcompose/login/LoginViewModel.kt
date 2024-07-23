@@ -85,7 +85,6 @@ class LoginViewModel(
                     loginState = loginState.copy(isSuccessLogin = false)
                 }
             }
-
         }catch(e: Exception){
             loginState = loginState.copy(signUpError = e.localizedMessage)  // to extract message from exception
             e.printStackTrace()

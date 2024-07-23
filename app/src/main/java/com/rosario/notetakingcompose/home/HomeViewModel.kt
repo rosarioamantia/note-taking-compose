@@ -12,6 +12,7 @@ class HomeViewModel(
     fun logout(){
         if(repository.hasUser()){
             repository.firebaseInstance.signOut()
+
         }
     }
 
