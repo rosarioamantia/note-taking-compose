@@ -37,6 +37,10 @@ class DetailViewModel(
         detailUiState = detailUiState.copy(note = note)
     }
 
+    fun onTitleChange(title: String){
+        detailUiState = detailUiState.copy(title = title)
+    }
+
     fun addNote(
         title: String,
         description: String,
@@ -56,7 +60,7 @@ class DetailViewModel(
         }
     }
 
-
+    // da capire
     fun setEditFields(note: Note){
         detailUiState = detailUiState.copy(
             colorIndex = note.colorIndex,
@@ -73,6 +77,30 @@ class DetailViewModel(
            detailUiState = detailUiState.copy(selectedNote = it)
            detailUiState.selectedNote?.let{ it1 -> setEditFields(it1) }
         }
+    }
+
+    fun updateNote(
+        noteId: String
+    ){
+        repository.updateNote(
+            title = detailUiState.title,
+            description = detailUiState.note,
+            noteId = noteId,
+            color = detailUiState.colorIndex
+        ){
+            detailUiState = detailUiState.copy(updateNoteStatus = it)
+        }
+    }
+
+    fun resetNoteAddedStatus(){
+        detailUiState = detailUiState.copy(
+            noteAddedStatus = false,
+            updateNoteStatus = false
+        )
+    }
+
+    fun resetState(){
+        detailUiState = DetailUiState()
     }
 }
 

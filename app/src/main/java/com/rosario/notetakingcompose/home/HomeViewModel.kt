@@ -17,7 +17,4 @@ class HomeViewModel(
         }
     }
 
-
-    //chiamare metodi del repo per settare gli attributi dello stato in modo asincrono con le coroutines
-
 }
