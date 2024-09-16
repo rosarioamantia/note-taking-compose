@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.rosario.notetakingcompose.home.HomeScreen
 import com.rosario.notetakingcompose.login.LoginScreen
 import com.rosario.notetakingcompose.login.LoginViewModel
 import com.rosario.notetakingcompose.login.SignUpScreen
@@ -74,7 +73,7 @@ fun Navigation(
         }
 
         composable(route = HomeRoutes.Home.name){
-            HomeScreen()
+            //HomeScreen()
         }
     }
 

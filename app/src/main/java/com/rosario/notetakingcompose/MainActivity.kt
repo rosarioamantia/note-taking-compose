@@ -11,10 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.rosario.notetakingcompose.home.HomeScreen
 import com.rosario.notetakingcompose.login.LoginScreen
 import com.rosario.notetakingcompose.login.LoginViewModel
 import com.rosario.notetakingcompose.login.SignUpScreen
