@@ -28,6 +28,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -94,7 +95,7 @@ fun Home(
                     Text(text = "Home")
                 }
             )
-        }
+        },
     ){
         padding ->
         Column(modifier = Modifier.padding(padding)) {
@@ -124,7 +125,6 @@ fun Home(
                                 onNoteClick.invoke(note.documentId)
                             }
                         }
-
                     }
                 }
                 else -> {
@@ -136,7 +136,15 @@ fun Home(
             }
         }
     }
+
+    LaunchedEffect(key1 = homeViewModel?.hasUser == false) {
+        if(homeViewModel?.hasUser == false){
+            navToLoginPage.invoke()
+        }
+    }
 }
+
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

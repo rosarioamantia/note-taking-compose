@@ -6,52 +6,31 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.rosario.notetakingcompose.login.LoginScreen
+import com.rosario.notetakingcompose.detail.DetailViewModel
+import com.rosario.notetakingcompose.home.HomeViewModel
 import com.rosario.notetakingcompose.login.LoginViewModel
-import com.rosario.notetakingcompose.login.SignUpScreen
 import com.rosario.notetakingcompose.ui.theme.NoteTakingComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //val loginViewModel = viewModel(modelClass = LoginViewModel::class.java)
-
-            val loginViewModel: LoginViewModel = viewModel()
+            val loginViewModel = viewModel(modelClass = LoginViewModel::class.java)
+            val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
+            val detailViewModel = viewModel(modelClass = DetailViewModel::class.java)
             NoteTakingComposeTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Navigation(loginViewModel = loginViewModel)
+                Surface(modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background) {
+                    Navigation(
+                        loginViewModel = loginViewModel,
+                        detailViewModel = detailViewModel,
+                        homeViewModel = homeViewModel
+                    )
                 }
             }
-        }
-    }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun PrevLoginScreen() {
-    NoteTakingComposeTheme {
-        LoginScreen(onNavToHomePage = { /*TODO*/ }) {
-
-        }
-    }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun PrevSignupScreen() {
-    NoteTakingComposeTheme {
-        SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
-
         }
     }
 }
