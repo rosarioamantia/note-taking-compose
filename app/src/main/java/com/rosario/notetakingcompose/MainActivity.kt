@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
             val loginViewModel = viewModel(modelClass = LoginViewModel::class.java)
             val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
             val detailViewModel = viewModel(modelClass = DetailViewModel::class.java)
+
             NoteTakingComposeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(),

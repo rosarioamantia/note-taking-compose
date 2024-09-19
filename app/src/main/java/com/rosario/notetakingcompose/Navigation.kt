@@ -41,7 +41,7 @@ fun Navigation(
     ) {
         authGraph(navController, loginViewModel)
         homeGraph(
-            navController = navController,
+            navController,
             detailViewModel,
             homeViewModel
         )
@@ -89,11 +89,8 @@ fun NavGraphBuilder.authGraph(
             ) {
                 navController.navigate(LoginRoutes.SignIn.name)
             }
-
         }
-
     }
-
 }
 
 fun NavGraphBuilder.homeGraph(
@@ -105,7 +102,7 @@ fun NavGraphBuilder.homeGraph(
         startDestination = HomeRoutes.Home.name,
         route = NestedRoutes.Main.name,
     ){
-        composable(HomeRoutes.Home.name){
+        composable(route = HomeRoutes.Home.name){
             Home(
                 homeViewModel = homeViewModel,
                 onNoteClick = { noteId ->
@@ -136,13 +133,11 @@ fun NavGraphBuilder.homeGraph(
                 defaultValue = ""
             })
         ){ entry ->
-
             DetailScreen(
                 detailViewModel = detailViewModel,
                 noteId = entry.arguments?.getString("id") as String,
             ) {
                 navController.navigateUp()
-
             }
         }
     }
