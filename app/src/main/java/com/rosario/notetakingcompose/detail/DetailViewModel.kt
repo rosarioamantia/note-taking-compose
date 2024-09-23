@@ -18,9 +18,9 @@ class DetailViewModel(
     // by = delegation: delegare la logica di gestione di una proprietà a un altro oggetto o funzione
     // mutableStateOf -> ritorna un MutableState<T>
 
-    // gestione dello stato reattivo -> all'aggiornamento di detailUiState si
+    // gestione dello stato reattivo -> all'aggiornamento di detailState si
     // aggiornano automaticamente tutti i @Composable che la stanno osservando
-    var detailUiState by mutableStateOf(DetailUiState())
+    var detailState by mutableStateOf(DetailState())
         private set
 
     private val hasUser:Boolean
@@ -30,15 +30,15 @@ class DetailViewModel(
         get() = repository.user()
 
     fun onColorChange(colorIndex: Int){
-        detailUiState = detailUiState.copy(colorIndex = colorIndex)
+        detailState = detailState.copy(colorIndex = colorIndex)
     }
 
     fun onNoteChange(note: String){
-        detailUiState = detailUiState.copy(note = note)
+        detailState = detailState.copy(note = note)
     }
 
     fun onTitleChange(title: String){
-        detailUiState = detailUiState.copy(title = title)
+        detailState = detailState.copy(title = title)
     }
 
     fun addNote(
@@ -50,19 +50,19 @@ class DetailViewModel(
         if(hasUser){
             repository.addNote(
                 userId = user!!.uid,
-                title = detailUiState.title,
-                description = detailUiState.note,
-                colorIndex = detailUiState.colorIndex,
+                title = detailState.title,
+                description = detailState.note,
+                colorIndex = detailState.colorIndex,
                 timestamp = Timestamp.now()
             ){
-                detailUiState = detailUiState.copy(noteAddedStatus = it)
+                detailState = detailState.copy(noteAddedStatus = it)
             }
         }
     }
 
     // da capire
     fun setEditFields(note: Note){
-        detailUiState = detailUiState.copy(
+        detailState = detailState.copy(
             colorIndex = note.colorIndex,
             title = note.title,
             note = note.description
@@ -74,8 +74,8 @@ class DetailViewModel(
             noteId = noteId,
             onError = {},
         ){
-           detailUiState = detailUiState.copy(selectedNote = it)
-           detailUiState.selectedNote?.let{ it1 -> setEditFields(it1) }
+           detailState = detailState.copy(selectedNote = it)
+           detailState.selectedNote?.let{ it1 -> setEditFields(it1) }
         }
     }
 
@@ -83,28 +83,28 @@ class DetailViewModel(
         noteId: String
     ){
         repository.updateNote(
-            title = detailUiState.title,
-            description = detailUiState.note,
+            title = detailState.title,
+            description = detailState.note,
             noteId = noteId,
-            color = detailUiState.colorIndex
+            color = detailState.colorIndex
         ){
-            detailUiState = detailUiState.copy(updateNoteStatus = it)
+            detailState = detailState.copy(updateNoteStatus = it)
         }
     }
 
     fun resetNoteAddedStatus(){
-        detailUiState = detailUiState.copy(
+        detailState = detailState.copy(
             noteAddedStatus = false,
             updateNoteStatus = false
         )
     }
 
     fun resetState(){
-        detailUiState = DetailUiState()
+        detailState = DetailState()
     }
 }
 
-data class DetailUiState(
+data class DetailState(
     val colorIndex: Int = 0,
     val title: String = "",
     val note: String = "",

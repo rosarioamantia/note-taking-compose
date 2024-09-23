@@ -108,14 +108,14 @@ class LoginViewModel(
                 if(isSuccessful){
                     Toast.makeText(
                         context,
-                        "Success Login",
+                        "Login Success",
                         Toast.LENGTH_SHORT
                     ).show()
                     loginState = loginState.copy(isSuccessLogin = true)
                 }else{
                     Toast.makeText(
                         context,
-                        "Failed Login",
+                        "Login Failed",
                         Toast.LENGTH_SHORT
                     ).show()
                     loginState = loginState.copy(isSuccessLogin = false)

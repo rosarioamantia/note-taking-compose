@@ -122,7 +122,6 @@ fun NavGraphBuilder.homeGraph(
                         inclusive = true
                     }
                 }
-
             }
         }
 

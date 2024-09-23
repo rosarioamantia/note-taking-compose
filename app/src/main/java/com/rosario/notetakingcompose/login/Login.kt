@@ -12,7 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -45,7 +44,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ){
         Text(
-           text = "Login",
+            text = "Login",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Black,
             color = MaterialTheme.colorScheme.primary
@@ -63,6 +62,7 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .padding(16.dp),
             value = loginState?.userName ?: "",
+            maxLines = 1,
             onValueChange = { loginViewModel?.onUserNameChange(it) },
             leadingIcon = {
                 Icon(
@@ -117,7 +117,7 @@ fun LoginScreen(
         }
 
         if(loginState?.isLoading == true){
-            CircularProgressIndicator()
+            //CircularProgressIndicator()
         }
 
         LaunchedEffect(key1 = loginViewModel?.hasUser){
@@ -151,6 +151,9 @@ fun SignUpScreen(
 
         if(isError){
             Text(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 10.dp)
+                    .fillMaxWidth(),
                 text = loginState?.signUpError ?: "Unknown Error", //Elvis operator
                 color = Color.Red
             )
@@ -234,7 +237,7 @@ fun SignUpScreen(
         }
 
         if(loginState?.isLoading == true){
-            CircularProgressIndicator()
+            //CircularProgressIndicator()
         }
 
         LaunchedEffect(key1 = loginViewModel?.hasUser){

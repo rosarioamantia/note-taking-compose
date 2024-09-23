@@ -1,6 +1,7 @@
 package com.rosario.notetakingcompose.detail
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -45,20 +46,20 @@ fun DetailScreen(
     noteId: String,
     onNavigate: () -> Unit
 ){
-    val detailUiState = detailViewModel?.detailUiState ?: DetailUiState()
+    val detailState = detailViewModel?.detailState ?: DetailState()
 
-    val isFormsNotBlank = detailUiState.note.isNotBlank() &&
-            detailUiState.title.isNotBlank()
+    val isFormsNotBlank = detailState.note.isNotBlank() &&
+            detailState.title.isNotBlank()
 
     val selectedColor by animateColorAsState(
-        targetValue = Utils.colors[detailUiState.colorIndex]
+        targetValue = Utils.colors[detailState.colorIndex]
     )
 
     val isNoteIdNotBlank = noteId.isNotBlank()
-    val icon = if (isFormsNotBlank) Icons.Default.Refresh
+    val icon = if (isNoteIdNotBlank) Icons.Default.Refresh
         else Icons.Default.Check
 
-    LaunchedEffect(key1 = Unit) {  // executed every time the val of key1 change
+    LaunchedEffect(key1 = Unit) {  // executed every time the val of key1 change (Unit = only 1)
         if(isNoteIdNotBlank){
             detailViewModel?.getNote(noteId)
         }else{
@@ -72,16 +73,18 @@ fun DetailScreen(
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    if(isNoteIdNotBlank){
-                        detailViewModel?.updateNote(noteId)
-                    }else{
-                        //detailViewModel?.addNote()
+            AnimatedVisibility(visible = isFormsNotBlank) {
+                FloatingActionButton(
+                    onClick = {
+                        if(isNoteIdNotBlank){
+                            detailViewModel?.updateNote(noteId)
+                        }else{
+                            //detailViewModel?.addNote()
+                        }
                     }
+                ) {
+                    Icon(imageVector = icon, contentDescription = "Add")
                 }
-            ) {
-                Icon(imageVector = icon, contentDescription = "Add")
             }
         }
     ){ padding ->
@@ -91,7 +94,7 @@ fun DetailScreen(
                 .background(color = selectedColor)
                 .padding(padding)
         ) {
-            if(detailUiState.noteAddedStatus){
+            if(detailState.noteAddedStatus){
                 scope.launch {
                     scaffoldState.showSnackbar("Added Note Successfully")
                     detailViewModel?.resetNoteAddedStatus()
@@ -99,7 +102,7 @@ fun DetailScreen(
                 }
             }
 
-            if(detailUiState.updateNoteStatus){
+            if(detailState.updateNoteStatus){
                 scope.launch {
                     scaffoldState.showSnackbar("Note Updated Successfully")
                     detailViewModel?.resetNoteAddedStatus()
@@ -122,7 +125,7 @@ fun DetailScreen(
                 }
             }
             OutlinedTextField(
-                value = detailUiState.title,
+                value = detailState.title,
                 onValueChange = { detailViewModel?.onTitleChange(it) },
                 label = { Text(text = "Title") },
                 modifier = Modifier
@@ -131,7 +134,7 @@ fun DetailScreen(
             )
 
             OutlinedTextField(
-                value = detailUiState.note,
+                value = detailState.note,
                 onValueChange = { detailViewModel?.onNoteChange(it) },
                 label = { Text(text = "Notes") },
                 modifier = Modifier

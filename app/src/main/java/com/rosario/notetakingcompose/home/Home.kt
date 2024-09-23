@@ -5,11 +5,9 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -42,7 +40,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.Timestamp
-import com.rosario.notetakingcompose.login.LoginScreen
 import com.rosario.notetakingcompose.models.Note
 import com.rosario.notetakingcompose.repository.Resources
 import com.rosario.notetakingcompose.ui.theme.NoteTakingComposeTheme
@@ -69,6 +66,10 @@ fun Home(
 
     val scope = rememberCoroutineScope()
     val scaffoldState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = Unit) {
+        homeViewModel?.loadNotes()
+    }
 
     Scaffold(
         floatingActionButton = {
@@ -101,11 +102,13 @@ fun Home(
         Column(modifier = Modifier.padding(padding)) {
             when(homeState.notesList){
                 is Resources.Loading -> {
+                    /*
                     CircularProgressIndicator(
                         modifier = Modifier
                             .fillMaxSize()
                             .wrapContentSize(align = Alignment.Center)
                     )
+                     */
                 }
                 is Resources.Success -> {
                     LazyVerticalGrid(
@@ -143,8 +146,6 @@ fun Home(
         }
     }
 }
-
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
